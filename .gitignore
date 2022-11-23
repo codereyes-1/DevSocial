@@ -1,0 +1,5 @@
+node_modules/
+appNotes.txt
+.vscode/
+/config/default.json
+.DS_Store
