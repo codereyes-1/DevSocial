@@ -6,9 +6,13 @@ import { logout } from '../../actions/auth'
 
 
 
-const Navbar = ({ auth: {isAuthenticated, loading }, logout}) => {
+const Navbar = ({ auth: {isAuthenticated }, logout}) => {
   const authLinks = (
     <ul>
+      <li><Link to="/dashboard">
+      <i className="fas fa-user"></i>{' '}
+      <span className='hide-sm'>Dashboard</span>
+      </Link></li>
       <li>
         <a onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt"></i>{' '}
@@ -34,7 +38,7 @@ const Navbar = ({ auth: {isAuthenticated, loading }, logout}) => {
         <i className="fas fa-code" /> DevConnector
       </Link>
     </h1>
-     { !loading && (<Fragment>{ isAuthenticated ? authLinks : guestLinks }</Fragment>)}
+     { (<Fragment>{ isAuthenticated ? authLinks : guestLinks }</Fragment>)}
   </nav>
   )
 };

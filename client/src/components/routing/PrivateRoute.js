@@ -1,24 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Route, Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 // take from Component from component and get any other components passed in with
 // using the rest operator ...
 const PrivateRoute = ({ component: Component, 
     auth: { isAuthenticated, loading },
-     ...rest
      }) => (
     // if not isAuth and not loading, redirect to login
     // else load component and props passed into that
-        <Route 
-        {...rest} render={props => 
-        !isAuthenticated && !loading ? (
+        !isAuthenticated && !loading ? 
         <Navigate to='/login' />
-        ) : (
-        <Component {...props} />
-        )} />
-)
+         : 
+        <Component />
+        )
+
 
 
 PrivateRoute.propTypes = {

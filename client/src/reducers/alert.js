@@ -9,7 +9,7 @@ const initialState = []
 // case 'SET ALERT' as type
 // separate folder for action types, with file types.js that holds all var, constants
 
-export default function(state = initialState, action) {
+export default function foo(state = initialState, action) {
     const { type, payload } = action
     
     switch(type) {

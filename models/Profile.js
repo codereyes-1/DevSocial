@@ -94,13 +94,13 @@ const ProfileSchema = new mongoose.Schema({
     ],
     // object
     social: {
-        youtube: {
-            type: String
-        },
         twitter: {
             type: String
         },
         facebook: {
+            type: String
+        },
+        youtube: {
             type: String
         },
         linkedin: {

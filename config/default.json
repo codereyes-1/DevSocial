@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://secret@sandbox.7wsam.mongodb.net/devparty?retryWrites=true&w=majority",
+    "jwtSecret": "secret",
+    "githubClientId": "secret",
+    "githubSecret": "secret"
+}

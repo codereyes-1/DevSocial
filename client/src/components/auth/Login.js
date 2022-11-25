@@ -33,7 +33,7 @@ export const Login = ({ login, isAuthenticated }) => {
       <form className="form" onSubmit={e => onSubmit(e)} action="create-profile.html">
         <div className="form-group">
           <input type="email" placeholder="Email Address" name="email" value={email}
-          onChange={e => onChange(e)} required />
+          onChange={e => onChange(e)}  />
         </div>
         <div className="form-group">
           <input
@@ -41,7 +41,7 @@ export const Login = ({ login, isAuthenticated }) => {
             placeholder="Password"
             name="password"
             value={password}
-            onChange={e => onChange(e)} required
+            onChange={e => onChange(e)} 
             minLength="6"
           />
         </div>
@@ -55,7 +55,7 @@ export const Login = ({ login, isAuthenticated }) => {
 }
 
 Login.propTypes = {
-  Login: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool
 }
 

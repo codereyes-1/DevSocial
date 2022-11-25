@@ -60,11 +60,11 @@ router.post('/', [auth,
             status,
             githubusername,
             skills,
-            youtube,
-            facebook,
             twitter,
-            instagram,
-            linkedin
+            facebook,
+            youtube,
+            linkedin,
+            instagram
         } = req.body
 
         // Build profile object
@@ -87,9 +87,9 @@ router.post('/', [auth,
         // get user.destructuredField from req.user.id. 
         // If item exists, set profileFields.XXXX = item
         profileFields.social = {}
-        if(youtube) profileFields.youtube = youtube
         if(twitter) profileFields.twitter = twitter
         if(facebook) profileFields.facebook = facebook
+        if(youtube) profileFields.youtube = youtube
         if(linkedin) profileFields.linkedin = linkedin
         if(instagram) profileFields.instagram = instagram
 
@@ -108,15 +108,12 @@ router.post('/', [auth,
 
             // If !found, Create
             profile = new Profile(profileFields)
-
             await profile.save()
-            res.json(profile)
+            return res.json(profile)
         } catch (err) {
             console.err(err.message)
             res.status(500).send('Server Error')
         }
-
-        res.send('Hello')
 })
 
 // @route    GET api/profile

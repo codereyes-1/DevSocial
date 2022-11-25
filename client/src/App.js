@@ -6,6 +6,7 @@ import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Alert from './components/layout/Alert' // add w/in container above switch
 import Dashboard from './components/dashboard/Dashboard'
+import CreateProfile from './components/profile-forms/CreateProfile'
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // Redux: provider to connect redux to react
@@ -36,6 +37,7 @@ const App = () => {
             <Route path='/register' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/dashboard' element={<PrivateRoute component={Dashboard} />} ></Route>
+            <Route path='/create-profile' element={<PrivateRoute component={CreateProfile} />} ></Route>
       </Routes>
       <Alert />
     </Fragment>
