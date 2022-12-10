@@ -61,6 +61,24 @@ const ProfileSchema = new mongoose.Schema({
             },
         }
     ],
+        // object
+        social: {
+            twitter: {
+                type: String
+            },
+            facebook: {
+                type: String
+            },
+            youtube: {
+                type: String
+            },
+            linkedin: {
+                type: String
+            },
+            instagram: {
+                type: String
+            }
+        },
     // array
     education: [
         {
@@ -92,24 +110,6 @@ const ProfileSchema = new mongoose.Schema({
             }
         }
     ],
-    // object
-    social: {
-        twitter: {
-            type: String
-        },
-        facebook: {
-            type: String
-        },
-        youtube: {
-            type: String
-        },
-        linkedin: {
-            type: String
-        },
-        instagram: {
-            type: String
-        }
-    },
     date: {
         type: Date,
         default: Date.now

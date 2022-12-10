@@ -7,6 +7,7 @@ const { check, validationResult } = require('express-validator')
 
 const Profile = require('../../models/Profile')
 const User = require('../../models/User')
+const Post = require('../../models/Post')
 // const { request, response } = require('express')
 
 // @route  GET api/profile/me
@@ -47,7 +48,7 @@ router.post('/', [auth,
     ]],
     async (req, res) => {
         const errors = validationResult(req)
-        if( !errors.isEmpty()) {
+        if  ( !errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() })
         }
         
@@ -59,12 +60,12 @@ router.post('/', [auth,
             bio,
             status,
             githubusername,
-            skills,
             twitter,
             facebook,
             youtube,
             linkedin,
-            instagram
+            instagram,
+            skills
         } = req.body
 
         // Build profile object
@@ -72,13 +73,18 @@ router.post('/', [auth,
         // get user.destructuredField from req.user.id. 
         // If item exists, set profileFields.XXXX = item
         profileFields.user = req.user.id
-        if(company) profileFields.company = company
-        if(website) profileFields.website = website
-        if(location) profileFields.location = location
-        if(bio) profileFields.bio = bio
-        if(status) profileFields.status = status
-        if(githubusername) profileFields.githubusername = githubusername
-        if(skills) {
+        if (company) profileFields.company = company
+        if (website) profileFields.website = website
+        if (location) profileFields.location = location
+        if (bio) profileFields.bio = bio
+        if (status) profileFields.status = status
+        if (githubusername) profileFields.githubusername = githubusername
+        // if(twitter) profileFields.twitter = twitter
+        // if(facebook) profileFields.facebook = facebook
+        // if(youtube) profileFields.youtube = youtube
+        // if(linkedin) profileFields.linkedin = linkedin
+        // if(instagram) profileFields.instagram = instagram
+        if (skills) {
             // turn comma skills list to array by map thru with skill.trim, 
             profileFields.skills = skills.split(',').map(skill => skill.trim())
         }
@@ -87,11 +93,11 @@ router.post('/', [auth,
         // get user.destructuredField from req.user.id. 
         // If item exists, set profileFields.XXXX = item
         profileFields.social = {}
-        if(twitter) profileFields.twitter = twitter
-        if(facebook) profileFields.facebook = facebook
-        if(youtube) profileFields.youtube = youtube
-        if(linkedin) profileFields.linkedin = linkedin
-        if(instagram) profileFields.instagram = instagram
+        if (twitter) profileFields.social.twitter = twitter
+        if (facebook) profileFields.social.facebook = facebook
+        if (youtube) profileFields.social.youtube = youtube
+        if (linkedin) profileFields.social.linkedin = linkedin
+        if (instagram) profileFields.social.instagram = instagram
 
         // Search for profile by user
         try {
@@ -109,7 +115,7 @@ router.post('/', [auth,
             // If !found, Create
             profile = new Profile(profileFields)
             await profile.save()
-            return res.json(profile)
+            res.json(profile)
         } catch (err) {
             console.err(err.message)
             res.status(500).send('Server Error')
@@ -141,7 +147,7 @@ router.get('/user/:user_id', async (req, res) => {
 
         if(!profile) return res.status(400).json({ msg: 'Profile not found'})
 
-        res.json(profile)
+        res.send(profile)
     } catch (err) {
         console.log(err.message)
         if(err.kind == 'ObjectId'){
@@ -158,6 +164,7 @@ router.get('/user/:user_id', async (req, res) => {
 router.delete('/', auth, async (req, res) => {
     try {
         // @todo - remove users posts
+        await Post.deleteMany({ user: req.user.id })
         // Remove profile
         await Profile.findOneAndRemove({ user: req.user.id })
         // Remove user

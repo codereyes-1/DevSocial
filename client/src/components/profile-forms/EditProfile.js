@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createProfile } from '../../actions/profile'
+import { createProfile, getCurrentProfile } from '../../actions/profile'
 
-const CreateProfile = ({ createProfile }) => {
+const EditProfile = ({ 
+    profile: {profile, loading }, 
+    getCurrentProfile }) => {
 
   const [formData, setFormData] = useState({
     company: '',
@@ -13,15 +15,38 @@ const CreateProfile = ({ createProfile }) => {
     bio: '',
     status: '',
     githubusername: '',
-    skills: '',
     twitter: '',
     facebook: '',
     youtube: '',
     linkedin: '',
-    instagram: ''
-  }, [])
+    instagram: '',
+    skills: ''
+  }, [loading, getCurrentProfile])
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false)
+
+  useEffect(() => {
+    getCurrentProfile();
+    // if loading or no profile.data set to empty. If there is profile.data then fill item 
+    setFormData({
+        company: loading || !profile.company ? '' : profile.company,
+        website: loading || !profile.website ? '' : profile.website,
+        location: loading || !profile.location ? '' : profile.location,
+        status: loading || !profile.status ? '' : profile.status,
+        githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
+        bio: loading || !profile.bio ? '' : profile.bio,
+        twitter: loading || !profile.twitter ? '' : profile.twitter,
+        facebook: loading || !profile.facebook ? '' : profile.facebook,
+        linkedin: loading || !profile.linkedin ? '' : profile.linkedin,
+        youtube: loading || !profile.youtube ? '' : profile.youtube,
+        instagram: loading || !profile.instagram ? '' : profile.instagram,
+        skills: loading || !profile.skills ? '' : profile.skills.join(',')
+        // twitter: loading || !profile.twitter ? '' : profile.social.twitter,
+        // facebook: loading || !profile.facebook ? '' : profile.social.facebook,
+        // linkedin: loading || !profile.linkedin ? '' : profile.social.linkedin,
+        // youtube: loading || !profile.youtube ? '' : profile.social.youtube,
+        // instagram: loading || !profile.instagram ? '' : profile.social.instagram
+    })}, [loading, getCurrentProfile]);
 
   const {
     company,
@@ -30,19 +55,19 @@ const CreateProfile = ({ createProfile }) => {
     bio,
     status,
     githubusername,
-    skills,
     twitter,
     facebook,
     youtube,
     linkedin,
-    instagram
+    instagram,
+    skills
   } = formData
 
-  const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value })
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData)
+    createProfile(formData, navigate, profile ? true : false )
     navigate('/dashboard');
   }
 
@@ -170,12 +195,14 @@ const CreateProfile = ({ createProfile }) => {
   )
 }
 
-CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   profile: state.profile
 })
 
-export default connect(mapStateToProps, { createProfile })((CreateProfile))
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })((EditProfile))

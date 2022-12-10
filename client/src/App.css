@@ -1,8 +1,8 @@
 /* Global Styles */
 :root {
   --primary-color: #17a2b8;
-  --dark-color: #343a40;
-  --light-color: #f4f4f4;
+  --dark-color: #7db0b4;
+  --light-color: hwb(0 96% 4%);
   --danger-color: #dc3545;
   --success-color: #28a745;
 }
@@ -17,8 +17,8 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
-  color: #333;
+  background-color: rgba(175, 158, 150, 0.211);
+  color: rgb(158, 210, 204);
 }
 
 a {
@@ -295,7 +295,7 @@ button {
 }
 
 .table th {
-  background: var(--light-color);
+  background: var(--dark-color);
 }
 
 /* Navbar */
@@ -338,10 +338,10 @@ button {
 }
 
 .landing-inner {
-  color: #fff;
+  color: rgb(185, 221, 220);
   height: 100%;
   width: 80%;
-  margin: auto;
+  margin: 7% 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -422,7 +422,7 @@ button {
 .profile-edu > div {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: #ccc 1px dotted;
+  border-bottom: rgb(204, 204, 204) 1px dotted;
 }
 
 .profile-exp > div:last-child,
