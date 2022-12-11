@@ -109,7 +109,7 @@ router.post('/', [auth,
                     { $set: profileFields },
                     { new: true })
 
-                    return res.json(profile)
+                return res.json(profile)
             }
 
             // If !found, Create
@@ -147,7 +147,7 @@ router.get('/user/:user_id', async (req, res) => {
 
         if(!profile) return res.status(400).json({ msg: 'Profile not found'})
 
-        res.send(profile)
+        res.json(profile)
     } catch (err) {
         console.log(err.message)
         if(err.kind == 'ObjectId'){
